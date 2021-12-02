@@ -1,4 +1,7 @@
+import 'package:scooby_app/src/providers/md_actores_provider.dart';
+
 class Cast {
+  ActoresProvider ac = ActoresProvider();
   List<Actor> actores = [];
 
   Cast.fromJsonList(List<dynamic> jsonList) {
@@ -7,19 +10,25 @@ class Cast {
     jsonList.forEach((item) {
       final actor = Actor.fromJsonMap(item);
       actores.add(actor);
+      ac.getBio(actor);
     });
   }
 }
 
 class Actor {
+  String uniqueId; //
+
   int castId;
   String character;
   String creditId;
+  String overview;
   int gender;
   int id;
   String name;
   int order;
+  String bio;
   String profilePath;
+  List<String> peliculas;
 
   Actor({
     this.castId,
@@ -30,6 +39,9 @@ class Actor {
     this.name,
     this.order,
     this.profilePath,
+    this.overview,
+    this.bio,
+    //this.peliculas,
   });
 
   Actor.fromJsonMap(Map<String, dynamic> json) {
@@ -40,6 +52,7 @@ class Actor {
     id = json['id'];
     name = json['name'];
     order = json['order'];
+    bio = "";
     profilePath = json['profile_path'];
   }
 
@@ -51,3 +64,5 @@ class Actor {
     }
   }
 }
+
+class ActorMovies {}
